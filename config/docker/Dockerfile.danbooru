@@ -25,7 +25,7 @@ COPY .bundle .bundle
 COPY Gemfile Gemfile.lock ./
 RUN \
   bundle config set deployment true --local && \
-  bundle config set path vendor/bundle && \
+  bundle config set path 'vendor/bundle' && \
   bundle install --jobs 4 && \
   gem install concurrent-ruby -v 1.1.6
 

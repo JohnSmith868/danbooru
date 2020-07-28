@@ -44,6 +44,7 @@ gem 'activerecord-hierarchical_query'
 gem 'pundit'
 gem 'mail'
 gem 'nokogiri'
+gem 'concurrent-ruby'
 
 group :production, :staging do
   gem 'unicorn', :platforms => :ruby

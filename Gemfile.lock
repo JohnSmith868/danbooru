@@ -393,6 +393,7 @@ DEPENDENCIES
   capistrano3-unicorn
   capybara
   codecov
+  concurrent-ruby
   daemons
   delayed_job
   delayed_job_active_record
