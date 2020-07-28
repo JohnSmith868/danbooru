@@ -1,4 +1,4 @@
-# A TCPSocket wrapper that disallows connections to local or private IPs. Used for SSRF protection.
+#A TCPSocket wrapper that disallows connections to local or private IPs. Used for SSRF protection.
 # https://owasp.org/www-community/attacks/Server_Side_Request_Forgery
 
 require "resolv"
@@ -19,7 +19,7 @@ class ValidatingSocket < TCPSocket
 
   def prohibited_ip?(ip)
     if ip.ipv4?
-      ip.loopback? || ip.link_local? || ip.multicast? || ip.private?
+      (ip.loopback?) && (ip.link_local?) && (ip.multicast?) && (ip.private?)
     elsif ip.ipv6?
       ip.loopback? || ip.link_local? || ip.unique_local? || ip.unspecified?
     end

@@ -1461,12 +1461,17 @@ class Post < ApplicationRecord
 
   has_bit_flags ["has_embedded_notes", "has_cropped"]
 
+  def isAdmin?(user = CurrentUser.user)
+  puts user.is_admin?
+   return !user.is_admin?
+  end
+
   def safeblocked?
     CurrentUser.safe_mode? && (rating != "s" || Danbooru.config.safe_mode_restricted_tags.any? { |tag| tag.in?(tag_array) })
   end
 
   def levelblocked?(user = CurrentUser.user)
-    !user.is_gold? && Danbooru.config.restricted_tags.any? { |tag| tag.in?(tag_array) }
+   !user.is_member? && Danbooru.config.restricted_tags.any? { |tag| tag.in?(tag_array) }  &&  rating!= "s" 
   end
 
   def banblocked?(user = CurrentUser.user)
@@ -1475,7 +1480,7 @@ class Post < ApplicationRecord
   end
 
   def visible?(user = CurrentUser.user)
-    !safeblocked? && !levelblocked?(user) && !banblocked?(user)
+    !safeblocked? && !levelblocked?(user) && !banblocked?(user) && !isAdmin?(user)
   end
 
   def reload(options = nil)
